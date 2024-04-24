@@ -1,0 +1,20 @@
+CREATE TABLE Organization (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Item (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(20) NOT NULL, -- 'perishable' or 'non-perishable'
+    description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Pricing (
+    id SERIAL PRIMARY KEY,
+    organization_id INTEGER REFERENCES Organization(id),
+    item_id INTEGER REFERENCES Item(id),
+    zone VARCHAR(50) NOT NULL,
+    base_distance_in_km INTEGER NOT NULL,
+    km_price INTEGER NOT NULL, -- Price in cents to avoid decimal issues
+    fix_price INTEGER NOT NULL -- Price in cents to avoid decimal issues
+);
